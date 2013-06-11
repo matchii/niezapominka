@@ -6,10 +6,10 @@ from django.conf.urls.defaults import patterns, include, url
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^tasks/add_task/$', 'frontend.views.add_task', name='add_task'),
-    url(r'^tasks/delete_task/$', 'frontend.views.delete_task', name='delete_task'),
-    url(r'^tasks/delete_subtask/$', 'frontend.views.delete_subtask', name='delete_subtask'),
-    url(r'^tasks/$', 'frontend.views.index', name='index'),
+    url(r'^add_task/$', 'frontend.views.add_task', name='add_task'),
+    url(r'^task_actions/$', 'frontend.views.task_actions', name='task_actions'),
+    url(r'^subtask_actions/$', 'frontend.views.subtask_actions', name='subtask_actions'),
+    url(r'^$', 'frontend.views.index', name='index'),
     url(r'^.*$', 'frontend.views.index', name='default'),
     # url(r'^niezapominka/', include('niezapominka.foo.urls')),
 
