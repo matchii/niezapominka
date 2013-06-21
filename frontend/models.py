@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 
 class Task(models.Model):
     name = models.CharField(max_length=255)
+    priority = models.IntegerField(default=0)
     is_open = models.BooleanField(default=True)
 
     def __unicode__(self):
@@ -15,7 +17,7 @@ class Task(models.Model):
         super(Task, self).delete()
 
     def cross_out(self):
-        """ skresla zadanie i wszystkie jego podpunkty """
+        """ skreśla zadanie i wszystkie jego podpunkty """
         self.subtask_set.all().update(is_open=False)
         self.is_open=False
         self.save()

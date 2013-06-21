@@ -1,0 +1,56 @@
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% get_static_prefix %}style.css" />
+</head>
+<body>
+    {{ DATABASES }}
+<form action="add_task/" method="post">
+    {% csrf_token %}
+    <input type="text" name="new_task_name" maxlength="255" placeholder="nazwa zadania" size="60" autofocus="autofocus" />
+    <input type="submit" value="Dodaj zadanie" />
+    <input type="text" name="priority" maxlength="3" placeholder="priorytet" size="2" value="0" />
+</form>
+
+<hr />
+
+{% if lista %}
+<ol>
+    {% for task in lista %}
+    <div style="display: inline;">
+    <li><form action="task_actions/" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="task_id" value="{{ task.id }}" />
+        <input type="submit" name="delete_task" class="delete_button" value="" title="usuń (wraz z podpunktami)" />
+    {% if task.is_open %}
+        <input type="submit" name="cross_out_task" value="" class="tick_button" title="skreśl (wraz z podpunktami)" />
+        <span class="priority">({{ task.priority }}) </span><span>{{ task }}</span>
+        <input type="text" name="new_subtask_name" placeholder="dodaj podpunkt" maxlength="255" size="50" />
+        <input type="submit" name="add_subtask" value="" class="add_button" />
+    {% else %}
+        <input type="submit" name="revive_task" value="" class="revive_button" title="odkreśl" />
+        <span class="priority">({{ task.priority }}) </span><span class="cross_gray">{{ task }}</span>
+    {% endif %}
+    </form></li>
+    </div>
+        {% for subtask in task.subtask_set.all %}
+        <form action="subtask_actions/" method="post" style="margin-left: 50px;" >
+            {% csrf_token %}
+            <input type="hidden" name="subtask_id" value="{{ subtask.id }}" />
+            <input type="submit" name="delete_subtask" value="" class="delete_sub_button" title="usuń" />
+        {% if subtask.is_open %}
+            <input type="submit" name="cross_out_subtask" value="" class="cross_sub_button" title="skreśl" />
+            <span>{{ subtask }}</span>
+        {% else %}
+            <input type="submit" name="revive_subtask" value="" class="revive_sub_button" title="odkreśl" />
+            <span class="cross_gray">{{ subtask }}</span>
+        {% endif %}
+        </form>
+        {% endfor %}
+    {% endfor %}
+</ol>
+{% else %}
+<p>Nie ma zadań</p>
+{% endif %}
+</body>
+</html>
