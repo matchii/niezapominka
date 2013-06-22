@@ -8,32 +8,43 @@
     font-size: 90%;
 }
 .delete_button {
-    background: url('cross.png') left center no-repeat;
-    height: 20px;
-    width: 20px;
+    background: url('cross.png') center center no-repeat;
+    height: 30px;
+    width: 30px;
 }
 .add_button {
-    background: url('add.png') left center no-repeat;
-    height: 20px;
-    width: 20px;
+    background: url('add.png') center center no-repeat;
+    height: 30px;
+    width: 30px;
 }
 .tick_button {
-    background: url('tick.png') left center no-repeat;
-    height: 20px;
-    width: 20px;
+    background: url('tick.png') center center no-repeat;
+    height: 30px;
+    width: 30px;
 }
-.subtask_container {
+.revive_button {
+    background: url('arrow_undo.png') center center no-repeat;
+    height: 30px;
+    width: 30px;
+}
+
+.task_div button {
+    cursor: pointer;
+    float: top;
+    margin: 5 2;
+}
+.task_name {
+    margin: auto;
+}
+
+.subtask_div {
     margin-left: 50px;
 }
-.subtask_container button {
+.subtask_div button {
     cursor: pointer;
     margin: 5 2;
 }
-.revive_button {
-    background: url('arrow_undo.png') left center no-repeat;
-    height: 20px;
-    width: 20px;
-}
+
 .delete_sub_button {
     background: url('bullet_delete.png') center center no-repeat;
     height: 20px;

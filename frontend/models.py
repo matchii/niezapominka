@@ -26,6 +26,7 @@ class Task(models.Model):
         return { 'name': self.name }
 
 class SubTask(models.Model):
+    id = models.AutoField(primary_key=True)
     task = models.ForeignKey(Task)
     name = models.CharField(max_length=255)
     is_open = models.BooleanField(default=True)

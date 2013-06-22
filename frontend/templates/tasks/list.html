@@ -31,6 +31,57 @@ $('document').ready(function() {
             }
         })
     })
+    $('.delete_button').live('click', function() {
+        var id = $(this).attr('task-id')
+        $.getJSON('delete_task/', { 'id': id, 'action': 'do_delete_task' }, function(data) {
+            if (data['success']) {
+                $('#task_'+id+'_container').parent().remove()
+            }
+        })
+    })
+    $('.tick_button').live('click', function() {
+        var id = $(this).attr('task-id')
+        $.getJSON('cross_out_task/', { 'id': id, 'action': 'do_cross_task' }, function(data) {
+            if (data['success']) {
+                $('#task_'+id).removeClass('tick_button').addClass('revive_button')
+                $('#task_'+id).siblings('span.task_name').addClass('cross_gray')
+                $('#task_'+id).siblings('div.task_form').hide()
+            }
+        })
+    })
+    $('.revive_button').live('click', function() {
+        var id = $(this).attr('task-id')
+        $.getJSON('revive_task/', { 'id': id, 'action': 'do_revive_task' }, function(data) {
+            if (data['success']) {
+                $('#task_'+id).removeClass('revive_button').addClass('tick_button')
+                $('#task_'+id).siblings('span.task_name').removeClass('cross_gray')
+                $('#task_'+id).siblings('div.task_form').show().attr('display', 'inline')
+            }
+        })
+    })
+    $('.add_button').live('click', function() {
+        var id = $(this).attr('task-id')
+        var name = $('#subtask_name_'+id).val()
+        $.getJSON('add_subtask/', { 'id': id, 'action': 'do_add_subtask', 'name': name }, function(data) {
+            if (data['success']) {
+                var new_id = data['id']
+                $('#subtask_name_'+id).val('').focus()
+                $('#task_'+id+'_container').siblings('div.subtasks_container')
+                    .append(
+                        $('<div>').addClass('subtask_div').attr('id', 'subtask_'+new_id+'_container')
+                            .append($('<button>')
+                                .attr({'id': 'del_subtask_'+new_id, 'subtask_id': new_id, 'type': 'button'})
+                                .addClass('delete_sub_button')
+                            )
+                            .append($('<button>')
+                                .attr({'id': 'cross_subtask_'+new_id, 'subtask_id': new_id, 'type': 'button'})
+                                .addClass('cross_sub_button'))
+                            .append($('<span>').html(name)
+                        )
+                    )
+            }
+        })
+    })
 });
 </script>
 </head>
@@ -47,41 +98,60 @@ $('document').ready(function() {
 {% if lista %}
 <ol>
     {% for task in lista %}
-    <div style="display: inline;">
-    <li><form action="task_actions/" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="task_id" value="{{ task.id }}" />
-        <input type="submit" name="delete_task" class="delete_button" value="" title="usuń (wraz z podpunktami)" />
+    <li>
+    <div id="task_{{ task.id }}_container" class="task_div">
+        <button
+            type="button"
+            id="del_task_{{ task.id }}"
+            task-id="{{ task.id }}"
+            class="delete_button"
+            title="usuń (wraz z podpunktami)"></button>
     {% if task.is_open %}
-        <input type="submit" name="cross_out_task" value="" class="tick_button" title="skreśl (wraz z podpunktami)" />
-        <span class="priority">({{ task.priority }}) </span><span>{{ task }}</span>
-        <input type="text" name="new_subtask_name" placeholder="dodaj podpunkt" maxlength="255" size="50" />
-        <input type="submit" name="add_subtask" value="" class="add_button" />
+        <button
+            type="button"
+            id="task_{{ task.id }}"
+            task-id="{{ task.id }}"
+            class="tick_button"
+            title="skreśl"></button>
+        <span class="priority">({{ task.priority }}) </span><span class="task_name">{{ task }}</span>
+        <div class="task_form" style="display: inline;">
+            <input type="text" id="subtask_name_{{ task.id }}" placeholder="dodaj podpunkt" maxlength="255" size="50" />
+            <button
+                type="button"
+                id="add_task_{{ task.id }}"
+                task-id="{{ task.id }}"
+                class="add_button" ></button>
+        </div>
     {% else %}
-        <input type="submit" name="revive_task" value="" class="revive_button" title="odkreśl" />
+        <button
+            type="button"
+            id="task_{{ task.id }}"
+            task-id="{{ task.id }}"
+            class="revive_button"
+            title="odkreśl"></button>
         <span class="priority">({{ task.priority }}) </span><span class="cross_gray">{{ task }}</span>
     {% endif %}
-    </form></li>
     </div>
+    <div class="subtasks_container">
         {% for subtask in task.subtask_set.all %}
-        <div id="subtask_{{ subtask.id }}_container" class="subtask_container">
+        <div id="subtask_{{ subtask.id }}_container" class="subtask_div">
             <button
                 type="button"
                 id="del_subtask_{{ subtask.id }}"
                 subtask-id="{{ subtask.id }}"
                 class="delete_sub_button"
-                title="skreśl">
-            </button>
+                title="skreśl"></button>
             <button
                 type="button"
                 id="subtask_{{ subtask.id }}"
                 subtask_id="{{ subtask.id }}"
                 class="{% if subtask.is_open %}cross_sub_button{% else %}revive_sub_button{% endif %}"
-                title="skreśl">
-            </button>
+                title="skreśl"></button>
             <span {% if not subtask.is_open %}class="cross_gray"{% endif %}>{{ subtask }}</span>
         </div>
         {% endfor %}
+    </div>
+    </li>
     {% endfor %}
 </ol>
 {% else %}

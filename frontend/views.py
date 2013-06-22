@@ -26,15 +26,35 @@ def task_actions(request):
                 .create(name=request.POST['new_subtask_name'])
                 .save()
             )
-        elif 'delete_task' in request.POST:
-            get_object_or_404(Task, id=task_id).delete()
-        elif 'cross_out_task' in request.POST:
-            Task.objects.get(id=task_id).cross_out()
-        elif 'revive_task' in request.POST:
-            task = get_object_or_404(Task, id=task_id)
-            task.is_open = True
-            task.save()
     return HttpResponseRedirect(reverse("frontend.views.index"))
+
+def task_action(request):
+    result = { 'success': False }
+    if request.method == u'GET':
+        GET = request.GET
+        if GET.has_key(u'id') and GET.has_key(u'action'):
+            r = (globals()[GET['action']])(GET)
+            result = { 'success': True }
+            if isinstance(r, dict):
+                result.update(r)
+    json = simplejson.dumps(result)
+    return HttpResponse(json, mimetype='application/json')
+
+def do_delete_task(GET):
+    get_object_or_404(Task, id=GET['id']).delete()
+
+def do_cross_task(GET):
+    Task.objects.get(id=GET['id']).cross_out()
+
+def do_revive_task(GET):
+    task = get_object_or_404(Task, id=GET['id'])
+    task.is_open = True
+    task.save()
+
+def do_add_subtask(GET):
+    sub = Task.objects.get(id=GET['id']).subtask_set.create(name=GET['name'])
+    sub.save()
+    return { 'id': sub.id }
 
 def subtask_action(request):
     result = { 'success': False }

@@ -8,6 +8,10 @@ urlpatterns = patterns('frontend.views',
     # Examples:
     url(r'^add_task/$', 'add_task', name='add_task'),
     url(r'^task_actions/$', 'task_actions', name='task_actions'),
+    url(r'^delete_task/$', 'task_action'),
+    url(r'^cross_out_task/$', 'task_action'),
+    url(r'^revive_task/$', 'task_action'),
+    url(r'^add_subtask/$', 'task_action'),
 
     url(r'^cross_out_subtask/$', 'subtask_action'),
     url(r'^revive_subtask/$', 'subtask_action'),
