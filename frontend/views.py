@@ -36,36 +36,25 @@ def task_actions(request):
             task.save()
     return HttpResponseRedirect(reverse("frontend.views.index"))
 
-def cross_out_subtask(request):
+def subtask_action(request):
     result = { 'success': False }
     if request.method == u'GET':
         GET = request.GET
-        if GET.has_key(u'id'):
-            st = SubTask.objects.get(id=GET['id'])
-            st.is_open = False
-            st.save()
+        if GET.has_key(u'id') and GET.has_key(u'action'):
+            (globals()[GET['action']])(GET['id'])
             result = { 'success': True }
     json = simplejson.dumps(result)
     return HttpResponse(json, mimetype='application/json')
 
-def revive_subtask(request):
-    result = { 'success': False }
-    if request.method == u'GET':
-        GET = request.GET
-        if GET.has_key(u'id'):
-            task = SubTask.objects.get(id=GET['id'])
-            task.is_open = True
-            task.save()
-            result = { 'success': True }
-    json = simplejson.dumps(result)
-    return HttpResponse(json, mimetype='application/json')
+def do_cross_subtask(pk):
+    task = SubTask.objects.get(id=pk)
+    task.is_open = False
+    task.save()
 
-def delete_subtask(request):
-    result = { 'success': False }
-    if request.method == u'GET':
-        GET = request.GET
-        if GET.has_key(u'id'):
-            SubTask.objects.get(id=GET['id']).delete()
-            result = { 'success': True }
-    json = simplejson.dumps(result)
-    return HttpResponse(json, mimetype='application/json')
+def do_revive_subtask(pk):
+    task = SubTask.objects.get(id=pk)
+    task.is_open = True
+    task.save()
+
+def do_delete_subtask(pk):
+    SubTask.objects.get(id=pk).delete()

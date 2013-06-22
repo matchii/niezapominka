@@ -7,7 +7,7 @@
 $('document').ready(function() {
     $('.cross_sub_button').live('click', function() {
         var id = $(this).attr('subtask_id')
-        $.getJSON('cross_out_subtask/', { 'id': id }, function(data) {
+        $.getJSON('cross_out_subtask/', { 'id': id, 'action': 'do_cross_subtask' }, function(data) {
             if (data['success']) {
                 $('#subtask_'+id).removeClass('cross_sub_button').addClass('revive_sub_button')
                 $('#subtask_'+id).siblings('span').addClass('cross_gray')
@@ -16,7 +16,7 @@ $('document').ready(function() {
     })
     $('.revive_sub_button').live('click', function() {
         var id = $(this).attr('subtask_id')
-        $.getJSON('revive_subtask/', { 'id': id }, function(data) {
+        $.getJSON('revive_subtask/', { 'id': id, 'action': 'do_revive_subtask' }, function(data) {
             if (data['success']) {
                 $('#subtask_'+id).removeClass('revive_sub_button').addClass('cross_sub_button')
                 $('#subtask_'+id).siblings('span').removeClass('cross_gray')
@@ -25,7 +25,7 @@ $('document').ready(function() {
     })
     $('.delete_sub_button').live('click', function() {
         var id = $(this).attr('subtask-id')
-        $.getJSON('delete_subtask/', { 'id': id }, function(data) {
+        $.getJSON('delete_subtask/', { 'id': id, 'action': 'do_delete_subtask' }, function(data) {
             if (data['success']) {
                 $('#subtask_'+id+'_container').remove()
             }

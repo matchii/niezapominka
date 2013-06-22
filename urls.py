@@ -8,9 +8,11 @@ urlpatterns = patterns('frontend.views',
     # Examples:
     url(r'^add_task/$', 'add_task', name='add_task'),
     url(r'^task_actions/$', 'task_actions', name='task_actions'),
-    url(r'^cross_out_subtask/$', 'cross_out_subtask'),
-    url(r'^revive_subtask/$', 'revive_subtask'),
-    url(r'^delete_subtask/$', 'delete_subtask'),
+
+    url(r'^cross_out_subtask/$', 'subtask_action'),
+    url(r'^revive_subtask/$', 'subtask_action'),
+    url(r'^delete_subtask/$', 'subtask_action'),
+
     url(r'^$', 'index', name='index'),
     url(r'^.*$', 'index', name='default'),
     # url(r'^niezapominka/', include('niezapominka.foo.urls')),
