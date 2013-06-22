@@ -9,22 +9,36 @@
 }
 .delete_button {
     background: url('cross.png') left center no-repeat;
+    height: 20px;
+    width: 20px;
 }
 .add_button {
     background: url('add.png') left center no-repeat;
+    height: 20px;
+    width: 20px;
 }
 .tick_button {
     background: url('tick.png') left center no-repeat;
+    height: 20px;
+    width: 20px;
 }
 .revive_button {
     background: url('arrow_undo.png') left center no-repeat;
+    height: 20px;
+    width: 20px;
 }
 .delete_sub_button {
     background: url('bullet_delete.png') center center no-repeat;
+    height: 20px;
+    width: 20px;
 }
 .revive_sub_button {
     background: url('bullet_toggle_plus.png') center center no-repeat;
+    height: 20px;
+    width: 20px;
 }
 .cross_sub_button {
     background: url('bullet_toggle_minus.png') center center no-repeat;
+    height: 20px;
+    width: 20px;
 }

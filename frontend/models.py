@@ -22,6 +22,9 @@ class Task(models.Model):
         self.is_open=False
         self.save()
 
+    def as_dict(self):
+        return { 'name': self.name }
+
 class SubTask(models.Model):
     task = models.ForeignKey(Task)
     name = models.CharField(max_length=255)

@@ -1,10 +1,32 @@
 <html>
 <head>
-    {% load static %}
-    <link rel="stylesheet" href="{% get_static_prefix %}style.css" />
+{% load static %}
+<link rel="stylesheet" href="{% get_static_prefix %}style.css" />
+<script type="text/javascript" src="{% get_static_prefix %}jquery.min.js"></script>
+<script type="text/javascript">
+$('document').ready(function() {
+    $('.cross_sub_button').live('click', function() {
+        var id = $(this).attr('subtask_id')
+        $.getJSON('cross_out_subtask/', { 'id': id }, function(data) {
+            if (data['success']) {
+                $('#subtask_'+id).removeClass('cross_sub_button').addClass('revive_sub_button')
+                $('#subtask_'+id).siblings('span').addClass('cross_gray')
+            }
+        })
+    })
+    $('.revive_sub_button').live('click', function() {
+        var id = $(this).attr('subtask_id')
+        $.getJSON('revive_subtask/', { 'id': id }, function(data) {
+            if (data['success']) {
+                $('#subtask_'+id).removeClass('revive_sub_button').addClass('cross_sub_button')
+                $('#subtask_'+id).siblings('span').removeClass('cross_gray')
+            }
+        })
+    })
+});
+</script>
 </head>
 <body>
-    {{ DATABASES }}
 <form action="add_task/" method="post">
     {% csrf_token %}
     <input type="text" name="new_task_name" maxlength="255" placeholder="nazwa zadania" size="60" autofocus="autofocus" />
@@ -39,10 +61,22 @@
             <input type="hidden" name="subtask_id" value="{{ subtask.id }}" />
             <input type="submit" name="delete_subtask" value="" class="delete_sub_button" title="usuń" />
         {% if subtask.is_open %}
-            <input type="submit" name="cross_out_subtask" value="" class="cross_sub_button" title="skreśl" />
+            <button
+                type="button"
+                id="subtask_{{ subtask.id }}"
+                subtask_id="{{ subtask.id }}"
+                class="cross_sub_button"
+                title="skreśl">
+            </button>
             <span>{{ subtask }}</span>
         {% else %}
-            <input type="submit" name="revive_subtask" value="" class="revive_sub_button" title="odkreśl" />
+            <button
+                type="button"
+                id="subtask_{{ subtask.id }}"
+                subtask_id="{{ subtask.id }}"
+                class="revive_sub_button"
+                title="odkreśl">
+            </button>
             <span class="cross_gray">{{ subtask }}</span>
         {% endif %}
         </form>

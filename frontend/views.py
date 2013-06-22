@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import Context, RequestContext, loader
+from django.utils import simplejson
 from frontend.models import Task, SubTask
 
 # Create your views here.
@@ -40,12 +41,28 @@ def subtask_actions(request):
         subtask_id = request.POST['subtask_id']
         if 'delete_subtask' in request.POST:
             SubTask.objects.get(id=subtask_id).delete()
-        elif 'cross_out_subtask' in request.POST:
-            st = SubTask.objects.get(id=subtask_id)
+    return HttpResponseRedirect(reverse("frontend.views.index"))
+
+def cross_out_subtask(request):
+    result = { 'success': False }
+    if request.method == u'GET':
+        GET = request.GET
+        if GET.has_key(u'id'):
+            st = SubTask.objects.get(id=GET['id'])
             st.is_open = False
             st.save()
-        elif 'revive_subtask' in request.POST:
-            task = SubTask.objects.get(id=subtask_id)
+            result = { 'success': True }
+    json = simplejson.dumps(result)
+    return HttpResponse(json, mimetype='application/json')
+
+def revive_subtask(request):
+    result = { 'success': False }
+    if request.method == u'GET':
+        GET = request.GET
+        if GET.has_key(u'id'):
+            task = SubTask.objects.get(id=GET['id'])
             task.is_open = True
             task.save()
-    return HttpResponseRedirect(reverse("frontend.views.index"))
+            result = { 'success': True }
+    json = simplejson.dumps(result)
+    return HttpResponse(json, mimetype='application/json')

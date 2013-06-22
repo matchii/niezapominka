@@ -14,7 +14,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'niezapominka',          # Or path to database file if using sqlite3.
         'USER': 'niezapominka',          # Not used with sqlite3.
-        'PASSWORD': 'ccig',              # Not used with sqlite3.
+        'PASSWORD': 'pass',              # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -56,7 +56,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = '/var/www/niezapominka/static/'
+STATIC_ROOT = '/home/maciej/projekty/niezapominka/static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -106,7 +106,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/var/www/niezapominka/frontend/templates',
+    '/home/maciej/projekty/niezapominka/frontend/templates',
 )
 
 INSTALLED_APPS = (
