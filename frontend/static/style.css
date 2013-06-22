@@ -22,6 +22,13 @@
     height: 20px;
     width: 20px;
 }
+.subtask_container {
+    margin-left: 50px;
+}
+.subtask_container button {
+    cursor: pointer;
+    margin: 5 2;
+}
 .revive_button {
     background: url('arrow_undo.png') left center no-repeat;
     height: 20px;

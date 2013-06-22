@@ -23,6 +23,14 @@ $('document').ready(function() {
             }
         })
     })
+    $('.delete_sub_button').live('click', function() {
+        var id = $(this).attr('subtask-id')
+        $.getJSON('delete_subtask/', { 'id': id }, function(data) {
+            if (data['success']) {
+                $('#subtask_'+id+'_container').remove()
+            }
+        })
+    })
 });
 </script>
 </head>
@@ -56,30 +64,23 @@ $('document').ready(function() {
     </form></li>
     </div>
         {% for subtask in task.subtask_set.all %}
-        <form action="subtask_actions/" method="post" style="margin-left: 50px;" >
-            {% csrf_token %}
-            <input type="hidden" name="subtask_id" value="{{ subtask.id }}" />
-            <input type="submit" name="delete_subtask" value="" class="delete_sub_button" title="usuń" />
-        {% if subtask.is_open %}
+        <div id="subtask_{{ subtask.id }}_container" class="subtask_container">
             <button
                 type="button"
-                id="subtask_{{ subtask.id }}"
-                subtask_id="{{ subtask.id }}"
-                class="cross_sub_button"
+                id="del_subtask_{{ subtask.id }}"
+                subtask-id="{{ subtask.id }}"
+                class="delete_sub_button"
                 title="skreśl">
             </button>
-            <span>{{ subtask }}</span>
-        {% else %}
             <button
                 type="button"
                 id="subtask_{{ subtask.id }}"
                 subtask_id="{{ subtask.id }}"
-                class="revive_sub_button"
-                title="odkreśl">
+                class="{% if subtask.is_open %}cross_sub_button{% else %}revive_sub_button{% endif %}"
+                title="skreśl">
             </button>
-            <span class="cross_gray">{{ subtask }}</span>
-        {% endif %}
-        </form>
+            <span {% if not subtask.is_open %}class="cross_gray"{% endif %}>{{ subtask }}</span>
+        </div>
         {% endfor %}
     {% endfor %}
 </ol>

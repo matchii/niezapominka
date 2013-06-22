@@ -36,13 +36,6 @@ def task_actions(request):
             task.save()
     return HttpResponseRedirect(reverse("frontend.views.index"))
 
-def subtask_actions(request):
-    if request.POST:
-        subtask_id = request.POST['subtask_id']
-        if 'delete_subtask' in request.POST:
-            SubTask.objects.get(id=subtask_id).delete()
-    return HttpResponseRedirect(reverse("frontend.views.index"))
-
 def cross_out_subtask(request):
     result = { 'success': False }
     if request.method == u'GET':
@@ -63,6 +56,16 @@ def revive_subtask(request):
             task = SubTask.objects.get(id=GET['id'])
             task.is_open = True
             task.save()
+            result = { 'success': True }
+    json = simplejson.dumps(result)
+    return HttpResponse(json, mimetype='application/json')
+
+def delete_subtask(request):
+    result = { 'success': False }
+    if request.method == u'GET':
+        GET = request.GET
+        if GET.has_key(u'id'):
+            SubTask.objects.get(id=GET['id']).delete()
             result = { 'success': True }
     json = simplejson.dumps(result)
     return HttpResponse(json, mimetype='application/json')
