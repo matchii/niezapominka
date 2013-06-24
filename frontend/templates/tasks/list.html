@@ -2,88 +2,8 @@
 <head>
 {% load static %}
 <link rel="stylesheet" href="{% get_static_prefix %}style.css" />
-<script type="text/javascript" src="{% get_static_prefix %}jquery.min.js"></script>
-<script type="text/javascript">
-$('document').ready(function() {
-    $('.cross_sub_button').live('click', function() {
-        var id = $(this).attr('subtask_id')
-        $.getJSON('cross_out_subtask/', { 'id': id, 'action': 'do_cross_subtask' }, function(data) {
-            if (data['success']) {
-                $('#subtask_'+id).removeClass('cross_sub_button').addClass('revive_sub_button')
-                $('#subtask_'+id).siblings('span').addClass('cross_gray')
-            }
-        })
-    })
-    $('.revive_sub_button').live('click', function() {
-        var id = $(this).attr('subtask_id')
-        $.getJSON('revive_subtask/', { 'id': id, 'action': 'do_revive_subtask' }, function(data) {
-            if (data['success']) {
-                $('#subtask_'+id).removeClass('revive_sub_button').addClass('cross_sub_button')
-                $('#subtask_'+id).siblings('span').removeClass('cross_gray')
-            }
-        })
-    })
-    $('.delete_sub_button').live('click', function() {
-        var id = $(this).attr('subtask-id')
-        $.getJSON('delete_subtask/', { 'id': id, 'action': 'do_delete_subtask' }, function(data) {
-            if (data['success']) {
-                $('#subtask_'+id+'_container').remove()
-            }
-        })
-    })
-    $('.delete_button').live('click', function() {
-        var id = $(this).attr('task-id')
-        $.getJSON('delete_task/', { 'id': id, 'action': 'do_delete_task' }, function(data) {
-            if (data['success']) {
-                $('#task_'+id+'_container').parent().remove()
-            }
-        })
-    })
-    $('.tick_button').live('click', function() {
-        var id = $(this).attr('task-id')
-        $.getJSON('cross_out_task/', { 'id': id, 'action': 'do_cross_task' }, function(data) {
-            if (data['success']) {
-                $('#task_'+id).removeClass('tick_button').addClass('revive_button')
-                $('#task_'+id).siblings('span.task_name').addClass('cross_gray')
-                $('#task_'+id).siblings('div.task_form').hide()
-            }
-        })
-    })
-    $('.revive_button').live('click', function() {
-        var id = $(this).attr('task-id')
-        $.getJSON('revive_task/', { 'id': id, 'action': 'do_revive_task' }, function(data) {
-            if (data['success']) {
-                $('#task_'+id).removeClass('revive_button').addClass('tick_button')
-                $('#task_'+id).siblings('span.task_name').removeClass('cross_gray')
-                $('#task_'+id).siblings('div.task_form').show().attr('display', 'inline')
-            }
-        })
-    })
-    $('.add_button').live('click', function() {
-        var id = $(this).attr('task-id')
-        var name = $('#subtask_name_'+id).val()
-        $.getJSON('add_subtask/', { 'id': id, 'action': 'do_add_subtask', 'name': name }, function(data) {
-            if (data['success']) {
-                var new_id = data['id']
-                $('#subtask_name_'+id).val('').focus()
-                $('#task_'+id+'_container').siblings('div.subtasks_container')
-                    .append(
-                        $('<div>').addClass('subtask_div').attr('id', 'subtask_'+new_id+'_container')
-                            .append($('<button>')
-                                .attr({'id': 'del_subtask_'+new_id, 'subtask_id': new_id, 'type': 'button'})
-                                .addClass('delete_sub_button')
-                            )
-                            .append($('<button>')
-                                .attr({'id': 'cross_subtask_'+new_id, 'subtask_id': new_id, 'type': 'button'})
-                                .addClass('cross_sub_button'))
-                            .append($('<span>').html(name)
-                        )
-                    )
-            }
-        })
-    })
-});
-</script>
+<script type="text/javascript" src="{% get_static_prefix %}js/jquery.min.js"></script>
+<script type="text/javascript" src="{% get_static_prefix %}js/list.js"></script>
 </head>
 <body>
 <form action="add_task/" method="post">
@@ -144,7 +64,7 @@ $('document').ready(function() {
             <button
                 type="button"
                 id="subtask_{{ subtask.id }}"
-                subtask_id="{{ subtask.id }}"
+                subtask-id="{{ subtask.id }}"
                 class="{% if subtask.is_open %}cross_sub_button{% else %}revive_sub_button{% endif %}"
                 title="skreśl"></button>
             <span {% if not subtask.is_open %}class="cross_gray"{% endif %}>{{ subtask }}</span>

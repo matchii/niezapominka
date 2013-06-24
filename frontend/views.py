@@ -18,17 +18,7 @@ def add_task(request):
         ).save()
     return HttpResponseRedirect(reverse("frontend.views.index"))
 
-def task_actions(request):
-    if request.POST:
-        task_id = request.POST['task_id']
-        if request.POST and request.POST['new_subtask_name']:
-            (Task.objects.get(id=task_id).subtask_set
-                .create(name=request.POST['new_subtask_name'])
-                .save()
-            )
-    return HttpResponseRedirect(reverse("frontend.views.index"))
-
-def task_action(request):
+def action(request):
     result = { 'success': False }
     if request.method == u'GET':
         GET = request.GET
@@ -40,41 +30,31 @@ def task_action(request):
     json = simplejson.dumps(result)
     return HttpResponse(json, mimetype='application/json')
 
-def do_delete_task(GET):
+def delete_task(GET):
     get_object_or_404(Task, id=GET['id']).delete()
 
-def do_cross_task(GET):
+def cross_out_task(GET):
     Task.objects.get(id=GET['id']).cross_out()
 
-def do_revive_task(GET):
-    task = get_object_or_404(Task, id=GET['id'])
+def revive_task(GET):
+    task = Task.objects.get(id=GET['id'])
     task.is_open = True
     task.save()
 
-def do_add_subtask(GET):
+def add_subtask(GET):
     sub = Task.objects.get(id=GET['id']).subtask_set.create(name=GET['name'])
     sub.save()
     return { 'id': sub.id }
 
-def subtask_action(request):
-    result = { 'success': False }
-    if request.method == u'GET':
-        GET = request.GET
-        if GET.has_key(u'id') and GET.has_key(u'action'):
-            (globals()[GET['action']])(GET['id'])
-            result = { 'success': True }
-    json = simplejson.dumps(result)
-    return HttpResponse(json, mimetype='application/json')
-
-def do_cross_subtask(pk):
-    task = SubTask.objects.get(id=pk)
+def cross_out_subtask(GET):
+    task = SubTask.objects.get(id=GET['id'])
     task.is_open = False
     task.save()
 
-def do_revive_subtask(pk):
-    task = SubTask.objects.get(id=pk)
+def revive_subtask(GET):
+    task = SubTask.objects.get(id=GET['id'])
     task.is_open = True
     task.save()
 
-def do_delete_subtask(pk):
-    SubTask.objects.get(id=pk).delete()
+def delete_subtask(GET):
+    SubTask.objects.get(id=GET['id']).delete()
