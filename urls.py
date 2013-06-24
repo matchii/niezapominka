@@ -10,6 +10,7 @@ urlpatterns = patterns('frontend.views',
     url(r'^delete_task/$', 'action'),
     url(r'^cross_out_task/$', 'action'),
     url(r'^revive_task/$', 'action'),
+    url(r'^set_task_priority/$', 'action'),
     url(r'^add_subtask/$', 'action'),
 
     url(r'^cross_out_subtask/$', 'action'),

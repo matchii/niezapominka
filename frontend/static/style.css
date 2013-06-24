@@ -5,7 +5,11 @@
 }
 .priority {
     color: gray;
+    cursor: pointer;
     font-size: 90%;
+}
+.priority_input {
+    width: 40px;
 }
 .delete_button {
     background: url('cross.png') center center no-repeat;
@@ -23,7 +27,7 @@
     width: 30px;
 }
 .revive_button {
-    background: url('arrow_undo.png') center center no-repeat;
+    background: url('images/asterisk_yellow.png') center center no-repeat;
     height: 30px;
     width: 30px;
 }
@@ -57,6 +61,11 @@
 }
 .cross_sub_button {
     background: url('bullet_toggle_minus.png') center center no-repeat;
+    height: 20px;
+    width: 20px;
+}
+.set_task_priority_button {
+    background: url('images/database_save.png') center center no-repeat;
     height: 20px;
     width: 20px;
 }

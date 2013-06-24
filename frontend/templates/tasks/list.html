@@ -19,52 +19,54 @@
 <ol>
     {% for task in lista %}
     <li>
-    <div id="task_{{ task.id }}_container" class="task_div">
+    <div id="task_{{ task.id }}_container" task-id="{{ task.id }}" class="task_div">
         <button
             type="button"
             id="del_task_{{ task.id }}"
-            task-id="{{ task.id }}"
             class="delete_button"
             title="usuń (wraz z podpunktami)"></button>
     {% if task.is_open %}
         <button
             type="button"
             id="task_{{ task.id }}"
-            task-id="{{ task.id }}"
             class="tick_button"
             title="skreśl"></button>
-        <span class="priority">({{ task.priority }}) </span><span class="task_name">{{ task }}</span>
+        <span id="task_{{ task.id }}_priority" class="priority" priority="{{ task.priority }}">({{ task.priority }})
+            <input type="text" value="{{ task.priority }}" style="display: none" class="priority_input" />
+            <button
+                type="button"
+                style="display: none"
+                class="set_task_priority_button" ></button>
+            </span>
+        <span class="task_name">{{ task }}</span>
         <div class="task_form" style="display: inline;">
             <input type="text" id="subtask_name_{{ task.id }}" placeholder="dodaj podpunkt" maxlength="255" size="50" />
             <button
                 type="button"
                 id="add_task_{{ task.id }}"
-                task-id="{{ task.id }}"
                 class="add_button" ></button>
         </div>
     {% else %}
         <button
             type="button"
             id="task_{{ task.id }}"
-            task-id="{{ task.id }}"
             class="revive_button"
             title="odkreśl"></button>
-        <span class="priority">({{ task.priority }}) </span><span class="cross_gray">{{ task }}</span>
+        <span id="task_{{ task.id }}_priority" class="priority" priority="{{ task.priority }}">({{ task.priority }}) </span>
+        <span class="cross_gray">{{ task }}</span>
     {% endif %}
     </div>
     <div class="subtasks_container">
         {% for subtask in task.subtask_set.all %}
-        <div id="subtask_{{ subtask.id }}_container" class="subtask_div">
+        <div id="subtask_{{ subtask.id }}_container" subtask-id="{{ subtask.id }}" class="subtask_div">
             <button
                 type="button"
                 id="del_subtask_{{ subtask.id }}"
-                subtask-id="{{ subtask.id }}"
                 class="delete_sub_button"
                 title="skreśl"></button>
             <button
                 type="button"
                 id="subtask_{{ subtask.id }}"
-                subtask-id="{{ subtask.id }}"
                 class="{% if subtask.is_open %}cross_sub_button{% else %}revive_sub_button{% endif %}"
                 title="skreśl"></button>
             <span {% if not subtask.is_open %}class="cross_gray"{% endif %}>{{ subtask }}</span>

@@ -58,3 +58,8 @@ def revive_subtask(GET):
 
 def delete_subtask(GET):
     SubTask.objects.get(id=GET['id']).delete()
+
+def set_task_priority(GET):
+    task = Task.objects.get(id=GET['id'])
+    task.priority = GET['priority']
+    task.save()
