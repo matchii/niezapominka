@@ -11,29 +11,46 @@
 .priority_input {
     width: 40px;
 }
-.delete_button {
-    background: url('cross.png') center center no-repeat;
+
+.noclick {
+    cursor: auto;
+}
+
+button {
+    cursor: pointer;
+}
+
+.large_button {
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -khtml-border-radius: 15px;
+    border-radius: 15px;
     height: 30px;
     width: 30px;
+}
+.small_button {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+    height: 20px;
+    width: 20px;
+}
+
+.delete_button {
+    background: url('cross.png') center center no-repeat;
 }
 .add_button {
     background: url('add.png') center center no-repeat;
-    height: 30px;
-    width: 30px;
 }
 .tick_button {
     background: url('tick.png') center center no-repeat;
-    height: 30px;
-    width: 30px;
 }
 .revive_button {
     background: url('images/asterisk_yellow.png') center center no-repeat;
-    height: 30px;
-    width: 30px;
 }
 
 .task_div button {
-    cursor: pointer;
     float: top;
     margin: 5 2;
 }
@@ -45,27 +62,18 @@
     margin-left: 50px;
 }
 .subtask_div button {
-    cursor: pointer;
     margin: 5 2;
 }
 
 .delete_sub_button {
     background: url('bullet_delete.png') center center no-repeat;
-    height: 20px;
-    width: 20px;
 }
 .revive_sub_button {
     background: url('bullet_toggle_plus.png') center center no-repeat;
-    height: 20px;
-    width: 20px;
 }
 .cross_sub_button {
     background: url('bullet_toggle_minus.png') center center no-repeat;
-    height: 20px;
-    width: 20px;
 }
 .set_task_priority_button {
     background: url('images/database_save.png') center center no-repeat;
-    height: 20px;
-    width: 20px;
 }

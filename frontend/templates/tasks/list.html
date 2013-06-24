@@ -1,9 +1,10 @@
 <html>
 <head>
-{% load static %}
-<link rel="stylesheet" href="{% get_static_prefix %}style.css" />
-<script type="text/javascript" src="{% get_static_prefix %}js/jquery.min.js"></script>
-<script type="text/javascript" src="{% get_static_prefix %}js/list.js"></script>
+    <title>Niezapominka</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% get_static_prefix %}style.css" />
+    <script type="text/javascript" src="{% get_static_prefix %}js/jquery.min.js"></script>
+    <script type="text/javascript" src="{% get_static_prefix %}js/list.js"></script>
 </head>
 <body>
 <form action="add_task/" method="post">
@@ -23,20 +24,20 @@
         <button
             type="button"
             id="del_task_{{ task.id }}"
-            class="delete_button"
+            class="delete_button large_button"
             title="usuń (wraz z podpunktami)"></button>
     {% if task.is_open %}
         <button
             type="button"
             id="task_{{ task.id }}"
-            class="tick_button"
+            class="tick_button large_button"
             title="skreśl"></button>
         <span id="task_{{ task.id }}_priority" class="priority" priority="{{ task.priority }}">({{ task.priority }})
             <input type="text" value="{{ task.priority }}" style="display: none" class="priority_input" />
             <button
                 type="button"
                 style="display: none"
-                class="set_task_priority_button" ></button>
+                class="set_task_priority_button small_button" ></button>
             </span>
         <span class="task_name">{{ task }}</span>
         <div class="task_form" style="display: inline;">
@@ -44,15 +45,15 @@
             <button
                 type="button"
                 id="add_task_{{ task.id }}"
-                class="add_button" ></button>
+                class="add_button large_button" ></button>
         </div>
     {% else %}
         <button
             type="button"
             id="task_{{ task.id }}"
-            class="revive_button"
+            class="revive_button large_button"
             title="odkreśl"></button>
-        <span id="task_{{ task.id }}_priority" class="priority" priority="{{ task.priority }}">({{ task.priority }}) </span>
+        <span id="task_{{ task.id }}_priority" class="priority noclick" priority="{{ task.priority }}">({{ task.priority }}) </span>
         <span class="cross_gray">{{ task }}</span>
     {% endif %}
     </div>
@@ -62,12 +63,12 @@
             <button
                 type="button"
                 id="del_subtask_{{ subtask.id }}"
-                class="delete_sub_button"
+                class="delete_sub_button small_button"
                 title="skreśl"></button>
             <button
                 type="button"
                 id="subtask_{{ subtask.id }}"
-                class="{% if subtask.is_open %}cross_sub_button{% else %}revive_sub_button{% endif %}"
+                class="{% if subtask.is_open %}cross_sub_button{% else %}revive_sub_button{% endif %} small_button"
                 title="skreśl"></button>
             <span {% if not subtask.is_open %}class="cross_gray"{% endif %}>{{ subtask }}</span>
         </div>
