@@ -4,4 +4,4 @@
 *.log
 *.pot
 settings.py
-static/
+/static/

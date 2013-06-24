@@ -8,7 +8,11 @@ from frontend.models import Task, SubTask
 
 # Create your views here.
 def index(request):
-    return render_to_response("tasks/list.html", {'lista': Task.objects.order_by('-priority', 'id').all()}, RequestContext(request))
+    return render_to_response(
+        "tasks/list.html",
+        {'lista': Task.objects.order_by('-priority', 'id').all()},
+        RequestContext(request)
+    )
 
 def add_task(request):
     if request.POST and request.POST['new_task_name']:
@@ -61,5 +65,9 @@ def delete_subtask(GET):
 
 def set_task_priority(GET):
     task = Task.objects.get(id=GET['id'])
-    task.priority = GET['priority']
+    try:
+        p = int(GET['priority'])
+    except ValueError:
+        return { 'success': False }
+    task.priority = p
     task.save()
