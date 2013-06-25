@@ -65,6 +65,7 @@ $('document').ready(function() {
     $('.add_button').live('click', function() {
         var id = $(this).parent().parent().attr('task-id')
         var name = $('#subtask_name_'+id).val()
+        if (name.length == 0) return
         $.getJSON('add_subtask/', { 'id': id, 'action': 'add_subtask', 'name': name }, function(data) {
             if (data['success']) {
                 var new_id = data['id']
@@ -74,11 +75,11 @@ $('document').ready(function() {
                         $('<div>').addClass('subtask_div').attr('id', 'subtask_'+new_id+'_container')
                             .append($('<button>')
                                 .attr({'id': 'del_subtask_'+new_id, 'type': 'button'})
-                                .addClass(['delete_sub_button', 'small_button'])
+                                .addClass('delete_sub_button').addClass('small_button')
                             ).attr({ 'subtask-id': new_id })
                             .append($('<button>')
                                 .attr({'id': 'subtask_'+new_id, 'type': 'button'})
-                                .addClass(['cross_sub_button', 'small_button'])
+                                .addClass('cross_sub_button').addClass('small_button')
                             ).attr({ 'subtask-id': new_id })
                             .append($('<span>').html(name)
                         )
