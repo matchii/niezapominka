@@ -12,10 +12,10 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'niezapominka',          # Or path to database file if using sqlite3.
-        'USER': 'niezapominka',          # Not used with sqlite3.
-        'PASSWORD': 'pass',              # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'NAME': '$db_name',           # Or path to database file if using sqlite3.
+        'USER': '$db_user',          # Not used with sqlite3.
+        'PASSWORD': '$db_password',              # Not used with sqlite3.
+        'HOST': '$db_host',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
@@ -43,6 +43,8 @@ USE_I18N = True
 # calendars according to the current locale
 USE_L10N = True
 
+ROOT_DIR = '$root_dir'
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = ''
@@ -56,7 +58,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = '/home/maciej/projekty/niezapominka/static/'
+STATIC_ROOT = '%s/static/' % ROOT_DIR
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -106,7 +108,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/home/maciej/projekty/niezapominka/frontend/templates',
+    '%s/frontend/templates' % ROOT_DIR
 )
 
 INSTALLED_APPS = (
