@@ -17,8 +17,7 @@ class Task(models.Model):
         super(Task, self).delete()
 
     def cross_out(self):
-        """ skreśla zadanie i wszystkie jego podpunkty """
-        self.subtask_set.all().update(is_open=False)
+        """ skreśla zadanie """
         self.is_open=False
         self.save()
 
