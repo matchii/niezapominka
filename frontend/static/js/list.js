@@ -117,6 +117,58 @@ $('document').ready(function() {
             return true
         }
     })
+    // otwieramy pole do edycji treści punktu
+    $('.task_name').live('click', function() {
+        var task_id = $(this).parent().attr('task-id')
+        $('#edit_task_'+task_id).children().show()
+        $('#task_'+task_id+'_text').hide()
+        $('#edit_task_'+task_id).children('input').select()
+    })
+    // rezygnujemy z edycji treści punktu
+    $('.cancel_edit_button').live('click', function() {
+        var form = $(this).parent()
+        var task_id = form.parent().attr('task-id')
+        form.children('input').val($('#task_'+task_id+'_text').text())
+        form.children().hide()
+        $('#task_'+task_id+'_text').show()
+    })
+    // obsługa klawiatury w formularzu edycji treści punktu
+    $('.edit_task_form').live('keypress', function(event) {
+        var input = $(this).children('input')
+        var task_id = $(this).parent().attr('task-id')
+        var charCode = (event.which) ? event.which : event.keyCode;
+        // Esc chowa formularzyk
+        if (charCode == 27) {
+            $(this).children().hide()
+            $('#task_'+task_id+'_text').show()
+            return false
+        }
+        // Enter wciska przycisk 'zapisz'
+        if (charCode == 13) {
+            $(this).children('button.save_button').click()
+            return false;
+        }
+    })
+    // zapisujemy nową treść punktu
+    $('.save_button').live('click', function() {
+        var task_id = $(this).parent().parent().attr('task-id')
+        var edit_form = $(this).parent()
+        var text = $('#task_'+task_id+'_text')
+        var value = edit_form.children('input').val()
+        // nie pozwalamy zapisać pustej nazwy
+        if (value == '') return false
+        $.getJSON(
+            'save_task/',
+            { 'id': task_id, 'value': value, 'action': 'save_task' },
+            function(data) {
+                if (data['success']) {
+                    text.text(value)
+                }
+                edit_form.children().hide()
+                text.show()
+            }
+        )
+    })
     $('.set_task_priority_button').live('click', function() {
         var button = $(this)
         var input = button.siblings('input.priority_input')

@@ -49,6 +49,17 @@ button {
 .revive_button {
     background: url('images/asterisk_yellow.png') center center no-repeat;
 }
+.edit_button {
+    background: url('images/pencil.png') center center no-repeat;
+}
+.cancel_edit_button {
+    background: url('images/cancel.png') center center no-repeat;
+    display: none;
+}
+.save_button {
+    background: url('images/accept.png') center center no-repeat;
+    display: none;
+}
 
 .task_div button {
     float: top;
@@ -56,6 +67,7 @@ button {
 }
 .task_name {
     margin: auto;
+    cursor: pointer;
 }
 
 .subtask_div {

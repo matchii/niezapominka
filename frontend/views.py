@@ -45,6 +45,11 @@ def revive_task(GET):
     task.is_open = True
     task.save()
 
+def save_task(GET):
+    task = Task.objects.get(id=GET['id'])
+    task.name = GET[ur'value']
+    task.save()
+
 def add_subtask(GET):
     sub = Task.objects.get(id=GET['id']).subtask_set.create(name=GET['name'])
     sub.save()
