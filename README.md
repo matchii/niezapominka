@@ -32,6 +32,11 @@ Instalacja
 
 5. Pod adresem 127.0.0.1:8000 powinna być działająca aplikacja.
 
+### Ale po co to wszystko?
+
+Co robi ta aplikacyjka? Służy jako podręczny notatnik - wpisz coś, co masz zrobić
+a nie chcesz zapomnieć, potem skasuj po zrobieniu.
+
 ### Uwagi
 
 Polecenia from_scratch i build_db przyjmują parametry w formie np.:
