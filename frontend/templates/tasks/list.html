@@ -7,12 +7,14 @@
     <script type="text/javascript" src="{% get_static_prefix %}js/list.js"></script>
 </head>
 <body>
+    <div style="width: 800px; margin: auto;">
 <form action="add_task/" method="post">
     {% csrf_token %}
     <input type="text" name="new_task_name" maxlength="255" placeholder="nazwa zadania" size="60" autofocus="autofocus" />
     <input type="text" name="priority" maxlength="3" placeholder="priorytet" style="width: 70px;" value="0" />
     <input type="submit" value="Dodaj zadanie" />
 </form>
+</div>
 
 <hr />
 
@@ -20,7 +22,9 @@
 <ol>
     {% for task in lista %}
     <li>
-    <div id="task_{{ task.id }}_container" task-id="{{ task.id }}" class="task_div">
+    <div style="width: 100%; display: table;">
+    <div style="display: table-row;">
+    <div id="task_{{ task.id }}_container" task-id="{{ task.id }}" class="task_div" style="display: table-cell;" >
         <button
             type="button"
             id="del_task_{{ task.id }}"
@@ -69,7 +73,13 @@
         <span class="cross_gray">{{ task }}</span>
     {% endif %}
     </div>
-    <div class="subtasks_container">
+    <div
+        class="task_indicator"
+        style="display: table-cell; background: {{ task.color }}"
+        title="Dodane {{ task.added_at }}"
+    >{{ task.age }}</div>
+    </div>
+    <div class="subtasks_container" style="display: table-row;">
         {% for subtask in task.subtask_set.all %}
         <div id="subtask_{{ subtask.id }}_container" subtask-id="{{ subtask.id }}" class="subtask_div">
             <button
@@ -85,6 +95,7 @@
             <span {% if not subtask.is_open %}class="cross_gray"{% endif %}>{{ subtask }}</span>
         </div>
         {% endfor %}
+    </div>
     </div>
     </li>
     {% endfor %}

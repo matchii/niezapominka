@@ -16,23 +16,45 @@
     cursor: auto;
 }
 
+body {
+    background: #D8D8D8;
+}
+
+li {
+    background: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    margin: 8px;
+}
+
 button {
     cursor: pointer;
 }
 
+li input {
+    border: 0px;
+    border-bottom: 1px dotted;
+}
+
+div.task_indicator {
+    border-radius: 5px;
+    text-align: center;
+    width: 100px;
+}
+
 .large_button {
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -khtml-border-radius: 15px;
-    border-radius: 15px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
     height: 30px;
     width: 30px;
 }
 .small_button {
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -khtml-border-radius: 10px;
-    border-radius: 10px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
     height: 20px;
     width: 20px;
 }

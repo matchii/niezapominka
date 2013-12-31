@@ -4,7 +4,7 @@ $('document').ready(function() {
         var id = $(this).parent().attr('task-id')
         $.getJSON('delete_task/', { 'id': id, 'action': 'delete_task' }, function(data) {
             if (data['success']) {
-                var obj = $('#task_'+id+'_container').parent()
+                var obj = $('#task_'+id+'_container').parent().parent().parent()
                 obj.fadeOut(300, function() { obj.remove() })
             }
         })

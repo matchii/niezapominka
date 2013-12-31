@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.template import Context, RequestContext, loader
 from django.utils import simplejson
 from frontend.models import Task, SubTask
+from datetime import datetime
 
 # Create your views here.
 def index(request):
@@ -18,7 +19,8 @@ def add_task(request):
     if request.POST and request.POST['new_task_name']:
         Task(
             name=request.POST['new_task_name'],
-            priority=request.POST['priority']
+            priority=request.POST['priority'],
+            added_at=datetime.now()
         ).save()
     return HttpResponseRedirect(reverse("frontend.views.index"))
 
