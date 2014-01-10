@@ -22,7 +22,7 @@
 <ol>
     {% for task in lista %}
     <li>
-    <div style="width: 100%; display: table;">
+    <div style="width: 100%; display: table; background: {{ task.color }};">
     <div style="display: table-row;">
     <div id="task_{{ task.id }}_container" task-id="{{ task.id }}" class="task_div" style="display: table-cell;" >
         <button
@@ -75,7 +75,7 @@
     </div>
     <div
         class="task_indicator"
-        style="display: table-cell; background: {{ task.color }}"
+        style="display: table-cell;"
         title="Dodane {{ task.added_at }}"
     >{{ task.age }}</div>
     </div>

@@ -70,7 +70,7 @@ $('document').ready(function() {
             if (data['success']) {
                 var new_id = data['id']
                 $('#subtask_name_'+id).val('').focus()
-                $('#task_'+id+'_container').siblings('div.subtasks_container')
+                $('#task_'+id+'_container').parent().siblings('div.subtasks_container')
                     .append(
                         $('<div>').addClass('subtask_div').attr('id', 'subtask_'+new_id+'_container')
                             .append($('<button>')

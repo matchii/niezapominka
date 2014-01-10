@@ -17,17 +17,18 @@
 }
 
 body {
-    background: #D8D8D8;
+    background-color: #D8D8D8;
 }
 
 li {
-    background: white;
-    border: 1px solid white;
+    background-color: white;
+    border: 2px outset white;
     border-radius: 5px;
     margin: 8px;
 }
 
 button {
+    background-color: white;
     cursor: pointer;
 }
 
@@ -37,7 +38,6 @@ li input {
 }
 
 div.task_indicator {
-    border-radius: 5px;
     text-align: center;
     width: 100px;
 }
@@ -60,26 +60,40 @@ div.task_indicator {
 }
 
 .delete_button {
-    background: url('cross.png') center center no-repeat;
+    background-image: url('cross.png');
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 .add_button {
-    background: url('add.png') center center no-repeat;
+    background-image: url('add.png');
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 .tick_button {
-    background: url('tick.png') center center no-repeat;
+    background-image: url('tick.png');
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 .revive_button {
-    background: url('images/asterisk_yellow.png') center center no-repeat;
+    background-image: url('images/asterisk_yellow.png');
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 .edit_button {
-    background: url('images/pencil.png') center center no-repeat;
+    background-image: url('images/pencil.png');
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 .cancel_edit_button {
-    background: url('images/cancel.png') center center no-repeat;
+    background-image: url('images/cancel.png');
+    background-position: center center;
+    background-repeat: no-repeat;
     display: none;
 }
 .save_button {
-    background: url('images/accept.png') center center no-repeat;
+    background-image: url('images/accept.png');
+    background-position: center center;
+    background-repeat: no-repeat;
     display: none;
 }
 
@@ -100,14 +114,22 @@ div.task_indicator {
 }
 
 .delete_sub_button {
-    background: url('bullet_delete.png') center center no-repeat;
+    background-image: url('bullet_delete.png');
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 .revive_sub_button {
-    background: url('bullet_toggle_plus.png') center center no-repeat;
+    background-image: url('bullet_toggle_plus.png');
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 .cross_sub_button {
-    background: url('bullet_toggle_minus.png') center center no-repeat;
+    background-image: url('bullet_toggle_minus.png');
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 .set_task_priority_button {
-    background: url('images/database_save.png') center center no-repeat;
+    background-image: url('images/database_save.png');
+    background-position: center center;
+    background-repeat: no-repeat;
 }
