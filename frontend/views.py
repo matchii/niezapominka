@@ -78,3 +78,9 @@ def set_task_priority(GET):
         return { 'success': False }
     task.priority = p
     task.save()
+
+def star_task(GET):
+    Task.objects.exclude(id=GET['id']).update(is_marked=False)
+    task = Task.objects.get(id=GET['id'])
+    task.is_marked = not task.is_marked
+    task.save()

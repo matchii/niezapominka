@@ -133,3 +133,9 @@ div.task_indicator {
     background-position: center center;
     background-repeat: no-repeat;
 }
+
+.marked_button {
+    background-image: url('images/star.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+}

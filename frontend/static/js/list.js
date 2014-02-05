@@ -20,6 +20,21 @@ $('document').ready(function() {
             }
         })
     })
+    // skreślanie zadania
+    $('.star_button').live('click', function() {
+        var id = $(this).parent().attr('task-id')
+        $.getJSON('star_task/', { 'id': id, 'action': 'star_task' }, function(data) {
+            if (data['success']) {
+                var b = $('#star_task_' + id)
+                if (b.hasClass('marked_button')) {
+                    b.removeClass('marked_button')
+                } else {
+                    $('.star_button').removeClass('marked_button')
+                    b.addClass('marked_button')
+                }
+            }
+        })
+    })
     // odkreślanie (przywracanie) zadania
     $('.revive_button').live('click', function() {
         var id = $(this).parent().attr('task-id')

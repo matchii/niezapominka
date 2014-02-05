@@ -6,6 +6,7 @@ class Task(models.Model):
     name = models.CharField(max_length=255)
     priority = models.IntegerField(default=0)
     is_open = models.BooleanField(default=True)
+    is_marked = models.BooleanField(default=False)
     added_at = models.DateTimeField(default=datetime.datetime.now())
 
     def __unicode__(self):
@@ -21,6 +22,10 @@ class Task(models.Model):
     def cross_out(self):
         """ skreśla zadanie """
         self.is_open=False
+        self.save()
+
+    def unmark(self):
+        self.is_marked = False
         self.save()
 
     def as_dict(self):

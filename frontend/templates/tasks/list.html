@@ -36,6 +36,11 @@
             id="task_{{ task.id }}"
             class="tick_button large_button"
             title="skreśl"></button>
+        <button
+            type="button"
+            id="star_task_{{ task.id }}"
+            class="star_button large_button {% if task.is_marked %}marked_button{% endif %}"
+            title="zaznacz"></button>
         <span id="task_{{ task.id }}_priority" class="priority" priority="{{ task.priority }}">({{ task.priority }})
             <input type="text" value="{{ task.priority }}" style="display: none" class="priority_input" />
             <button
